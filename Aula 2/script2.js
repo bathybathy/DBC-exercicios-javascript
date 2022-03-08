@@ -75,5 +75,6 @@ let total = 0;
           total+=soma;
       }
   }while(opcao===1)
-alert(total);
+
+if(total!==0){alert(total)};
     
