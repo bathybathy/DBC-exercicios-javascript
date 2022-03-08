@@ -2,7 +2,7 @@
 
 // let dia = confirm("hoje é sexta?")
 
-// let mensagemSexta = dia === true
+// let mensagemSexta = dia
 //     ? alert("sextou")
 //     : alert("ainda não sextou")
 
@@ -26,7 +26,7 @@
 //exercicio 4
 
 do{
-var opcao = parseInt(prompt("opcao 1 - continuar perguntando ou opcao 2 - parar de perguntar"));
+let opcao = parseInt(prompt("opcao 1 - continuar perguntando ou opcao 2 - parar de perguntar"));
     if(opcao !==1 && opcao !==2){
         alert('Seleciona uma opção válida')}
 } while(opcao !==2);
