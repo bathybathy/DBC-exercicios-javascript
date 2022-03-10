@@ -1,11 +1,6 @@
 // exercicio 1
 
-// function lista(
-//     parametro1,
-//     parametro2,
-//     parametro3,
-//     parametro4,
-// ){
+// function lista(lista){
 //     console.log(parametro1, parametro2, parametro3, parametro4)
 // }
 
@@ -19,7 +14,8 @@ let textoNovo;
 
 function strSemEspacoInicial (string){
     console.log(string.trim().toUpperCase())
-    return textoNovo = string.trim().toUpperCase() ;
+    textoNovo = string.trim().toUpperCase() ;
+    return textoNovo
 }
 
 strSemEspacoInicial (texto);
@@ -49,9 +45,9 @@ strSemEspacoDuplo(textoNovo);*/
 //     alert("Algum número digitado é inválido")
 // }
 
-// function soma(){
-//     let n1 = parseInt(prompt("Digite um número para realizar adição"));
-//     let n2 = parseInt(prompt("Digite outro número para realizar adição"));
+// function soma(n1, n2, erro()){
+//     n1 = parseInt(prompt("Digite um número para realizar adição"));
+//     n2 = parseInt(prompt("Digite outro número para realizar adição"));
 //     if(!isNaN(n1) && !isNaN(n2)){
 //         let total = alert(`A soma dos dois números é ${n1+n2}`)
 //     }else{
@@ -67,12 +63,12 @@ strSemEspacoDuplo(textoNovo);*/
 let lista = ['a', 'cachorro', 255]
 
 
-function busca(item, indice){
-    if(lista.includes(item) && lista.indexOf(indice)){
-        alert(`"${item}" existe no array e a posição dele é ${indice}`)
+function busca(item){
+    if(lista.includes(item)){
+        alert(`"${item}" existe no array e a posicao é ${lista.indexOf(item)}`)
     }else{
         alert("O elemento não existe no array")
     }
 }
 
-busca("a", 0);
+busca(255, 0);

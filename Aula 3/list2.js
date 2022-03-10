@@ -49,7 +49,7 @@ percorreBusca("a", ["a", 1, "a", 2, 3, "a", "maravilha"])*/
 
 // function concatenando (array1, array2){
 //     let concatenado = array1.concat(array2);
-//     alert(concatenado);
+//     return concatenado;
 // }
 
 // concatenando([1, 2, 3, 4], ["a", 3, "b"])
@@ -61,7 +61,7 @@ percorreBusca("a", ["a", 1, "a", 2, 3, "a", "maravilha"])*/
 /*let vazio = [];
 
 function adicionar (elemento){
-    vazio.unshift(elemento);
+    vazio.push(elemento);
     console.log(vazio)
 }
 
@@ -125,13 +125,9 @@ removerEspecifico(vazio, "papagaio")
 // function adicionaNumero(lista){
 //     do{
 //         let numero = numeroAleatorio();
-//         if(numero%2==1 && numero>14 && numero<50){
-//             lista.unshift(numero)
+//         if(numero%2===1 && numero>14 && numero<50 || numero%12===0){
+//             lista.push(numero)
 //             console.log(lista)
-//         }else if(numero%12===0){
-//             lista.unshift(numero)
-//             console.log(lista)
-//         }
 //     }while(lista.length<10)
 //     return lista
 
