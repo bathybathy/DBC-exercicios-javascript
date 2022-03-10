@@ -45,7 +45,7 @@
 
 //exercicio 5
 
-// let relogio = 0;
+let relogio = 0;
 
 // let limparRelogio = setInterval(
 //      function(){
@@ -60,6 +60,16 @@
 //         clearInterval(limparRelogio)
 //     }, 61*1000
 // )
+let codInterval = setInterval(
+  function(){
+      if(relogio<10){(console.log("0"+relogio))
+      }else{console.log(relogio)}
+      parseInt(relogio)
+      relogio++
+      if(relogio > 60)
+      clearInterval(codInterval)
+  }, 1000
+)
 
 
 //exercicio 6
@@ -75,6 +85,9 @@ let total = 0;
           total+=soma;
       }
   }while(opcao===1)
+  if(opcao !==1 && opcao!==2){
+    alert("digite uma opcao válida")
+  }
 
 if(total!==0){alert(total)};
     
