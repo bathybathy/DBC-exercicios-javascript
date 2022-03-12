@@ -1,4 +1,4 @@
-let menu = parseInt(prompt("Digite 1 para cadastrar um produto \nDigite 2 para excluir um produto pelo número de cadastro\n Digite 3 para encontrar um produto pelo número de cadastro"));
+
 let contadorId = 0;
 let produtoLista = [];
 
@@ -24,7 +24,6 @@ const deletarPorId = (deletar) =>{
             produtoLista.splice(deletarIndex, 1);
             alert("Produto deletado do cadastro.");
         }else{
-        // menu = parseInt(prompt("Digite 1 para cadastrar um produto \n Digite 2 para excluir um produto pelo número de cadastro"));
             console.log(produtoLista);
             alert("Operação cancelada.")
         }
@@ -34,43 +33,41 @@ const deletarPorId = (deletar) =>{
 }
 
 const encontrarProdutoId = (encontrarId) =>{
-    encontrarId = prompt("Entre o número de cadastro do produto:");
-    // let encontrarProduto = [];
-    // if(encontrarProduto === null || !produtoLista.some( () => encontrarId.id === produtoLista.id)){
-    //     alert("Digite um número válido. Operação cancelada.")
-    // }else{
-    //  encontrarProduto = produtoLista.filter ((el) => {encontrarId === el.id})
-     console.log("passou pelo filtro");
+    encontrarId = parseInt(prompt("Entre o número de cadastro do produto:"))
+    console.log("passou pelo filtro");
+    let produtoEncontrado = [];
     
+    produtoEncontrado = produtoLista.filter (el => el.id === encontrarId)
+    console.log(produtoEncontrado)
+    return produtoEncontrado
     
-    return produtoLista.filter ((el) => {encontrarId === el.id})
 }
 
+let menu = 0;
 do{
-    if(menu === 1){
-    cadastrarProduto(produtoLista.id, produtoLista.descricao, produtoLista.preco);
-    console.log(produtoLista);
-    menu = parseInt(prompt("Digite 1 para cadastrar um produto \nDigite 2 para excluir um produto pelo número de cadastro\n Digite 3 para encontrar um produto pelo número de cadastro"));
-    }
-    if(menu === 2){
-        deletarPorId(produtoLista.id);
-        menu = parseInt(prompt("Digite 1 para cadastrar um produto \nDigite 2 para excluir um produto pelo número de cadastro\n Digite 3 para encontrar um produto pelo número de cadastro"));
-        console.log(produtoLista)
+    menu = parseInt(prompt("Digite 1 para cadastrar um produto \nDigite 2 para excluir um produto pelo número de cadastro\nDigite 3 para encontrar um produto pelo número de cadastro"));
+    
+    switch(menu){
+        case 1: 
+            cadastrarProduto();
+            console.log(produtoLista);
+            break;
+        
+        case 2:
+            deletarPorId(produtoLista.id);
+            console.log(produtoLista);
+            break;
 
-    }
-    if(menu === 3){
-        encontrarProdutoId();
-        menu = parseInt(prompt("Digite 1 para cadastrar um produto \nDigite 2 para excluir um produto pelo número de cadastro\n Digite 3 para encontrar um produto pelo número de cadastro"));
-        console.log(encontrarProdutoId())
-    }
-}while(menu === 1 || menu === 2 || menu === 3)
+        case 3:
+            encontrarProdutoId(produtoLista.id);
+            break;
 
-// switch (menu){
-//     case 1: 
-//     cadastrarProduto(produtoLista.id, produtoLista.descricao, produtoLista.preco);
-//     console.log(produtoLista);
-//     menu = parseInt(prompt("Digite 1 para cadastrar um produto"));
-//     break
-//     default 
+        case 4:
+            console.table(produtoLista);
+            alert("As informações estão disponíveis no console.")
+            break;
+        default:
+            alert("Entre uma opção válida")
+    }
+}while(menu >0 && menu < 5)
 
-// }
