@@ -3,13 +3,24 @@ let contadorId = 0;
 let produtoLista = [];
 
 const cadastrarProduto = (id, descricao, preco) =>{
+    contaErro = 0;
     contadorId++;
     id = contadorId;
     descricao = prompt("Entre a descrição do produto:");
-    preco = (prompt("Digite o preco do produto:"));
-    produtoLista.push({id, descricao, preco})
+    preco = prompt("Digite o preço do produto:");
+    if(isNaN(descricao) || descricao > 0 || descricao === null || descricao === undefined){
+        alert("Entre uma descrição válida.")
+        contaErro++
+    }else if(isNaN(preco) || preco === null || preco === undefined || preco < 0){
+        alert("Entre um preço válido.")
+        contaErro++
+    }
+    if(contaErro === 0){
+        produtoLista.push({id, descricao, preco})
+        alert("Cadastro realizado com sucesso.")
+    }
     
-    alert("Cadastro realizado com sucesso.")
+    return produtoLista
 
 }
 
@@ -43,9 +54,51 @@ const encontrarProdutoId = (encontrarId) =>{
     
 }
 
+const encontrarDescricao = () =>{
+    let descricaoEncontrada = [];
+    if(produtoLista.some (el => el.descricao === produtoLista.includes(acharDescricao))){
+        descricaoEncontrada = produtoLista.filter ( el => el.descricao.includes(acharDescricao));
+        console.log(descricaoEncontrada);
+    }else{
+        alert("Descrição não encontrada. Operação cancelada.")
+    }
+}
+
+/*var precosMapa = produtoLista.map(function(item) { return item ["preco"] });
+tentei fazer uma função pra mapa de preço, mas quando chamo dentro de outra função, diz que não é uma função dentro da função especifica*/
+
+const patrimonioTotal = () => {
+    let precosMapa = produtoLista.map(function(item) { return item ["preco"] });
+    console.log(precosMapa)
+    let soma = precosMapa.reduce ((n1, n2) => n1+n2, 0)
+    alert(`O patrimônio total é de ${soma} reais.`)
+}
+
+
+const validarNumeros = () => {
+    let precosMapa = produtoLista.map(function(item) { return item ["preco"] });
+    let contaErro = 0;
+    precosMapa.forEach ((element) => {
+        if(element.toString().includes(",")){
+            element = element.replaceAll(",", ".");
+            console.log(element)
+            element = parseFloat(element);
+        }else if(isNaN(element) || element === null || element === undefined || element < 0){
+            contaErro++;
+        }
+    })
+    if(contaErro = 0){
+        alert("Todos preços cadastrados possuem valores válidos")
+    }else{
+        alert("Há preços com valores não válidos.")
+    }
+}
+
 let menu = 0;
+let acharDescricao;
+let opcao;
 do{
-    menu = parseInt(prompt("Digite 1 para cadastrar um produto \nDigite 2 para excluir um produto pelo número de cadastro\nDigite 3 para encontrar um produto pelo número de cadastro"));
+    menu = parseInt(prompt("Digite 1 para cadastrar um produto.\nDigite 2 para excluir um produto pelo número de cadastro.\nDigite 3 para encontrar um produto pelo número de cadastro.\nDigite 4 para menu de tabelas.\nDigite 5 para mostrar o patrimônio total.\nDigite 6 para confirmar se os preços cadastrados são válidos.\nDigite 7 se deseja sair do menu."));
     
     switch(menu){
         case 1: 
@@ -63,11 +116,42 @@ do{
             break;
 
         case 4:
-            console.table(produtoLista);
-            alert("As informações estão disponíveis no console.")
+            opcao = parseInt(prompt("Digite 1 para imprimir a tabela completa.\nDigite 2 para imprimir a tabela por descrição.\nDigite 3 para buscar uma descrição de produto e imprimi-la junto com seus preços."))
+            if (opcao === 1){
+                console.table(produtoLista);
+                alert("As informações estão disponíveis no console.")
+            }else if (opcao === 2){
+                console.table(produtoLista.descricao);
+                alert("As informações estão disponíveis no console.");
+            }else if (opcao === 3){
+                acharDescricao = prompt("Digite a descrição de produto desejada.")
+                encontrarDescricao(acharDescricao);
+                alert("As informações estão disponíveis no console.");
+            }else{
+                alert("Opção inválida. A operação foi cancelada.")
+            } 
             break;
-        default:
+        
+        case 5:
+            patrimonioTotal();
+            break;
+
+        case 6:
+            validarNumeros()
+            break;
+        
+        case 7:
+            let sair = confirm("Realmente deseja sair?");
+            if(sair){
+                menu = 8;
+                alert("O menu será fechado")
+                break;
+            }else{
+                break;
+            }
+
+        default: 
             alert("Entre uma opção válida")
     }
-}while(menu >0 && menu < 5)
+}while(menu !== 8)
 
