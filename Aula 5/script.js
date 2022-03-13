@@ -53,10 +53,15 @@ const deletarPorId = (deletar) =>{
 const encontrarProdutoId = (encontrarId) =>{
     encontrarId = parseInt(prompt("Entre o número de cadastro do produto:"))
     console.log("passou pelo filtro");
-    let produtoEncontrado = [];
+    let produtoEncontrado;
     
     produtoEncontrado = produtoLista.filter (el => el.id === encontrarId)
     console.log(produtoEncontrado)
+    if(produtoEncontrado.length === 0){
+        alert("Verifique o número de cadastro. Operação cancelada.")
+    }else{
+    alert("Verifique o console para informações desejadas.")}
+
     return produtoEncontrado
     
 }
