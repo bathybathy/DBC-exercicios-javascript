@@ -55,7 +55,7 @@ class Validacoes {
     }
 
     validaDia = (dia) =>{
-        if(dia < 0 || dia > 31 || dia === ""){
+        if(parseInt(dia) < 0 || parseInt(dia) > 31 || dia === ""){
             return false
         }else{
             return true
