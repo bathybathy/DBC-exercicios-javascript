@@ -1,0 +1,29 @@
+.body{
+    display: flex;
+    justify-content: center;
+}
+.container{
+    max-width: 800px;
+    min-height: 500px;
+    text-align: center;
+    
+}
+.corpo{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: red;
+}
+
+ul li{
+    display: flex;
+    justify-content: space-between;
+}
+
+ul li:hover{
+    cursor: pointer;
+}
+
+.green{
+    background-color: aquamarine;
+}
