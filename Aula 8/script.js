@@ -1,3 +1,84 @@
+let id = 1;
+let colaboradores = [];
+class Colaborador{
+  id = 0;
+  nome = "";
+  email = "";
+  senha = "";
+  nascimento = "";
+
+  constructor( nome, email, nascimento, senha){
+    this.nome = nome;
+    this.email = email;
+    this.nascimento = nascimento;
+    this.senha = senha;
+    this.id = id++;
+  }
+}
+
+const criarColaborador = ( nome, email, nascimento, senha ) => {
+  nome = document.getElementById("nome-input").value;
+  email = document.getElementById("email-input").value;
+  nascimento = document.getElementById("data-input").value;
+  senha = document.getElementById("senha-input").value;
+  
+  const adicionarAoHtml = () =>{
+    const novoLi = document.createElement("li")
+    novoLi.classList.add("w-100", "mt-2", "p-3", "d-flex", "align-items-center", "justify-content-between", "listar")
+    novoLi.setAttribute("id", `listar-${id}`)
+    const ul = document.getElementById("lista")
+    ul.appendChild(novoLi)
+    
+    const divNome = document.createElement("div")
+    let tituloNome = document.createElement("p")
+    tituloNome.textContent = "Nome:"
+    let novoNome = document.createElement("p")
+    novoNome.textContent = `${nome}`
+    divNome.append(tituloNome, novoNome)
+    
+    const divEmail = document.createElement("div")
+    let tituloEmail = document.createElement("p")
+    tituloEmail.textContent = "Email:"
+    let novoEmail = document.createElement("p")
+    novoEmail.textContent = `${email}`
+    divEmail.append(tituloEmail, novoEmail)
+
+    const divNascimento = document.createElement("div")
+    let tituloNascimento = document.createElement("p")
+    tituloNascimento.textContent = "Nascimento:"
+    let novoNascimento = document.createElement("p")
+    novoNascimento.textContent = `${nascimento}`
+    divNascimento.append(tituloNascimento, novoNascimento)
+
+    novoLi.append(divNome, divNascimento, divEmail)
+  
+  }
+  //tive que colocar aqui pq se chama a funcao de validar, tenta puxar o preventdefault de novo e dá erro
+  //nao consegui fazer funcionar colocando o preventdefault no html
+  if(validarData() && validarEmail() && validarSenha() && validarNome()){
+    const colaboradorInstanciado = new Colaborador (nome, email, nascimento, senha);
+    console.log(colaboradorInstanciado)
+    console.log(colaboradores)
+    colaboradores.push(colaboradorInstanciado);
+    let temColab = document.getElementById("titulo-colab")
+    temColab.classList.add("d-none")
+
+    adicionarAoHtml()
+  }
+}
+
+const listarColaboradores = () =>{
+  if(colaboradores.length === 0){
+    alert("Ainda não há colaboradores listados.")
+  }else{
+    for(i = 1; i <= id; i++){
+      //let aListar = document.getElementById(`listar-${i}`)
+      let aListar = document.getElementsByClassName("listar")
+      console.dir(aListar.innerText)
+    }
+  }
+}
+
 const validarEmail = () => {
     /* 
         adicionar um eventListener para o evento "onkeyup" do input email-input que terá como ação esta função de validarEmail
@@ -43,10 +124,14 @@ const validarEmail = () => {
     console.log(arrobaIndex)
     console.log(arrobaIndex, pontoIndex, pontoDepoisdoArroba)
     
-    
-
     const ehValido = primeiroCaractere && arroba && !arrobaPonto && dominio && existePontoEArroba && dominioPosArroba && doisCaracteresDepoisDoPonto && pontoDepoisdoArroba; 
-    console.log(ehValido, "se é valido")
+
+    let span = document.getElementById("email-erro");
+    if(!ehValido){
+      span.classList.remove("d-none")
+    }else{
+      span.classList.add("d-none")
+    }
     return ehValido;
 }
 
@@ -80,11 +165,18 @@ const validarSenha = (event) => {
     let peloMenosOito = senha.length >= 8;
 
     const ehValido = possuiLetraMinuscula && possuiLetraMaiuscula && possuiEspecial && possuiNumero && peloMenosOito;
+
+    let span = document.getElementById("senha-erro");
+    if(!ehValido){
+      span.classList.remove("d-none")
+    }else{
+      span.classList.add("d-none")
+    }
     return ehValido;
 }
 
 
-const adicionarMascaraData = (input, data) => {
+const adicionarMascaraData = () => {
   let dataInformada = document.getElementById("data-input").value;
   dataInformada = dataInformada.replaceAll("/", "")
   let dia = dataInformada.substring( 0, 2)
@@ -118,7 +210,7 @@ const validarData = () => {
     */
     
     const dataInformada = document.getElementById("data-input").value;
-    let data = moment( `${dataInformada}`)
+    let data = moment( `${dataInformada}`, "DDMMYYYY")
     let data26 = moment().subtract(26, "years");
     let data18 = moment().subtract(18, "years");
 
@@ -130,12 +222,62 @@ const validarData = () => {
     console.log(dataEhValida)
 
     const ehValido = entre && dataEhValida;
+    let span = document.getElementById("data-erro");
+    if(!ehValido){
+      span.classList.remove("d-none")
+    }else{
+      span.classList.add("d-none")
+    }
+    
     return ehValido;
 }
 
+/*
+  Temos o seguinte sistema atualmente (imaginando que temos completo tudo o que foi proposto em aula):
+
+  - um campo data de nascimento (validado e com o texto de data inválida caso assim esteja);
+  - um campo email (validado e com o texto de email inválido caso assim esteja);
+  - um campo senha (validado e com o texto de senha inválida caso assim esteja);
+  - um botão cadastrar que "sabe" se o cadastro está válido ou não;
+
+  
+  Agora precisamos:
+  (o modelo do html está no arquivo index.html e o modelo visual está em um arquivo page-model.png);
+
+  - adicionar um campo de nome acima da data de nascimento e adicionar a validação para possuir somente letras;
+  - criar uma classe Colaborador contendo todas as propriedades que os campos possuem e uma propriedade id;
+  - ao clicar em cadastrar, instanciar um colaborador e adicioná-lo à ul e à uma lista de colaboradores;
+  - adicionar um botão 'Visualizar Colaboradores' (pode ser no topo da tela à direita) 
+    que imprime no console todos os colaboradores cadastrados 
+    (ATENÇÃO -> buscar os colaboradores pelo document e não fazer um simples forEach da lista de colaboradores)
+*/
+
+const validarNome = () =>{
+  let nomeInformado = document.getElementById("nome-input").value;
+  let semEspaco = nomeInformado.replaceAll(" ", "")
+  let nomeSpread = [...semEspaco];
+  let nomeNaoVazio = nomeInformado !== "";
+  
+  let somenteLetra = nomeSpread.every(e => e.toUpperCase() !== e.toLowerCase());
+  console.log(somenteLetra, "somente letra")
+  
+  let ehValido = somenteLetra && nomeNaoVazio;
+  
+  let span = document.getElementById("nome-erro");
+  if(!ehValido){
+    span.classList.remove("d-none")
+  }else{
+    span.classList.add("d-none")
+  }
+  return ehValido;
+  
+}
 
 
 const validarCadastro = (event) => {
-  event.preventDefault();
-  console.log(`Cadastro ${validarData() && validarEmail() && validarSenha() ? 'válido!' : 'inválido'}`);
+  event.preventDefault()
+  let ehValido = false;
+  ehValido = console.log(`Cadastro ${validarData() && validarEmail() && validarSenha() && validarNome() ? 'válido!' : 'inválido'}`);
+  return ehValido
 }
+
