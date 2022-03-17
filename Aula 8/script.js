@@ -1,4 +1,4 @@
-let id = 1;
+let id = 0;
 let colaboradores = [];
 class Colaborador{
   id = 0;
@@ -25,7 +25,6 @@ const criarColaborador = ( nome, email, nascimento, senha ) => {
   const adicionarAoHtml = () =>{
     const novoLi = document.createElement("li")
     novoLi.classList.add("w-100", "mt-2", "p-3", "d-flex", "align-items-center", "justify-content-between", "listar")
-    novoLi.setAttribute("id", `listar-${id}`)
     const ul = document.getElementById("lista")
     ul.appendChild(novoLi)
     
@@ -34,6 +33,7 @@ const criarColaborador = ( nome, email, nascimento, senha ) => {
     tituloNome.textContent = "Nome:"
     let novoNome = document.createElement("p")
     novoNome.textContent = `${nome}`
+    novoNome.setAttribute("id", `listar-nome-${id}`)
     divNome.append(tituloNome, novoNome)
     
     const divEmail = document.createElement("div")
@@ -41,12 +41,14 @@ const criarColaborador = ( nome, email, nascimento, senha ) => {
     tituloEmail.textContent = "Email:"
     let novoEmail = document.createElement("p")
     novoEmail.textContent = `${email}`
+    novoEmail.setAttribute("id", `listar-email-${id}`)
     divEmail.append(tituloEmail, novoEmail)
 
     const divNascimento = document.createElement("div")
     let tituloNascimento = document.createElement("p")
     tituloNascimento.textContent = "Nascimento:"
     let novoNascimento = document.createElement("p")
+    novoNascimento.setAttribute("id", `listar-nascimento-${id}`)
     novoNascimento.textContent = `${nascimento}`
     divNascimento.append(tituloNascimento, novoNascimento)
 
@@ -71,10 +73,12 @@ const listarColaboradores = () =>{
   if(colaboradores.length === 0){
     alert("Ainda não há colaboradores listados.")
   }else{
-    for(i = 1; i <= id; i++){
+    for(i = 1; i <= colaboradores.length; i++){
       //let aListar = document.getElementById(`listar-${i}`)
-      let aListar = document.getElementsByClassName("listar")
-      console.dir(aListar.innerText)
+      let listarNome = document.getElementById(`listar-nome-${i}`).textContent
+      let listarEmail = document.getElementById(`listar-email-${i}`).textContent
+      let listarNascimento = document.getElementById(`listar-nascimento-${i}`).textContent
+      console.log(`Nome: ${listarNome}, email: ${listarEmail}, data de nascimento: ${listarNascimento}`)
     }
   }
 }
