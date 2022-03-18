@@ -213,7 +213,7 @@ const cadastrarUsuario = () => {
   let senha = document.getElementById("password-input-registration").value;
   
   nome = upperCase(nome);
-  const novoColab = new Colaborador (nome, nascimento, email, senha);
+  const novoColab = new Colaborador (nome, email, senha, nascimento);
 
   axios.post("http://localhost:3000/colaboradores", novoColab)
     .then( (resolve) =>{
